@@ -95,23 +95,20 @@ o_avg=zeros(1,N+1);g_avg=zeros(1,N+1);
 cc_i=zeros(1,N+1);c_i_t=zeros(K,N+1);
 Reli_i=zeros(1,N+1);C_pot_i=zeros(1,N+1);
 
-% %Uncertainity (adapted from EVS):
+%Uncertainity (adapted from EVS)
+obs_sort = sort(obs,1);
+p_sam = 0;unc = 0;
 inc = 1/N;
-for i=1:K
-    p_sam = 0;unc = 0;
-    for j = 1:N-1
-   start = round((i/K) * (length(obs_sort) - 1));
-   stop = round((i+1)/K * (length(obs_sort) - 1));
+for i=1:N-1
+   start = round((i/N) * (length(obs_sort) - 1));
+   stop = round((i+1)/N * (length(obs_sort) - 1));
    gap = obs_sort(stop) - obs_sort(start);
-%    gap = ens_sort(i,j+1) - ens_sort(i,j);
    p_sam = p_sam + inc;
-   p_sam_m(i,j) = p_sam;
+   p_sam_m(i) = p_sam;
    unc = unc + p_sam * (1 - p_sam) * gap;
-   unc_m(i,j) = unc;
-    end
+   unc_m(i) = unc;
 end
-%  UNCR = unc;
-UNCR = mean(unc_m(:,N-1));
+UNCR = unc;
 
 % average over cases
 a_avg = mean(a); %give equal weight to each cases (1 up to k)
