@@ -1,10 +1,15 @@
 function [meanCRPS_3,Reli,Reso,UNCR] = crps_decompose(fcst,obs)
 
 % Decomposition of CRPS based on Hersbach 2000
-% Written by Frezer Awol Sept 2018
+% Written by Frezer Awol, Sept 2018
 % awolf@mcmaster.ca
 
 % Note that there are three ways to compute mean crps in the paper which might have different values - refer meanCRPS_3, meanCRPS_2 & meanCRPS_1
+
+%% references
+% Hersbach, H. (2000). Decomposition of the Continuous Ranked Probability Score for Ensemble Prediction Systems. 
+% Weather and Forecasting, 15(5), 559–570. https://doi.org/10.1175/1520-0434(2000)015<0559:DOTCRP>2.0.CO;2
+
 
 %% inputs
 ens_mat = fcst; %ensembles: K*N, K is the time seires(or cases in Hersbach's term), N is the number of ensembles
